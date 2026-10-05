@@ -1,0 +1,75 @@
+@startuml LabBook_Activity_Diagram
+title LabBook - Complete Booking and Verification Workflow Activity Diagram
+skinparam monochrome false
+skinparam shadowing true
+
+start
+
+:Student navigates to LabBook portal;
+:Submit LDAP credentials;
+
+if (Authentication Valid?) then (no)
+    :Display error message;
+    stop
+else (yes)
+    :Display Student Dashboard;
+endif
+
+:Select Target Date, Department, and Preferred Lab;
+:System queries real-time availability;
+:Render 14-Lab by 8-Slot Grid;
+
+:Student selects desired free slot;
+:System initiates booking transaction;
+
+if (Curricular Timetable Conflict?) then (yes)
+    #pink:Reject: Slot occupied by Timetabled Class;
+    stop
+else (no)
+endif
+
+if (Department Quota Available?) then (no)
+    #pink:Reject: Weekly Department Quota Exhausted;
+    stop
+else (yes)
+endif
+
+if (Slot already booked by another user?) then (yes)
+    #pink:Reject: Slot clash detected;
+    stop
+else (no)
+endif
+
+:Acquire atomic database lock;
+:Mark Slot as 'CONFIRMED';
+:Decrement Department Quota balance;
+:Generate digital Booking Slip with QR Code;
+:Dispatch confirmation email to Student;
+
+#lightgreen:Booking Successfully Confirmed;
+
+fork
+    :Student arrives at Lab;
+    :Present QR Code to Lab Assistant;
+    :Lab Assistant scans code on Check-In Console;
+    if (Arrival within 15-min grace period?) then (yes)
+        :Mark Booking as 'CHECKED_IN';
+        :Student completes lab session;
+        :Mark Booking as 'COMPLETED';
+        stop
+    else (no)
+        :Lab Assistant rejects check-in;
+    endif
+fork again
+    :System background daemon sweeps active slots;
+    if (15 minutes elapsed since start AND status == 'CONFIRMED'?) then (yes)
+        #coral:Flag Booking as 'NO_SHOW';
+        :Apply penalty flag to Student;
+        :Transition Slot to 'AVAILABLE';
+        stop
+    else (no)
+    endif
+end fork
+
+stop
+@enduml

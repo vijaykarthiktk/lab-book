@@ -1,0 +1,25 @@
+gantt
+    title LabBook System Development Schedule (30 Working Days)
+    dateFormat  X
+    axisFormat Day %s
+
+    section Requirements
+    Requirements (Task A)         :crit, active, tA, 0, 4
+    Milestone 1 - SRS Approved   :milestone, m1, 4, 0
+
+    section Setup & Governance
+    Quota Policy (Task B)         :active, tB, 4, 9
+    Timetable Import (Task C)     :crit, active, tC, 4, 10
+    Milestone 2 - Quota Signed   :milestone, m2, 9, 0
+    Milestone 3 - Schedule Seeded :milestone, m3, 10, 0
+
+    section Core Engineering
+    Booking Module (Task D)       :crit, active, tD, 10, 20
+    Milestone 4 - Booking Core    :milestone, m4, 20, 0
+    Check-In Module (Task E)      :crit, active, tE, 20, 25
+    Reports Module (Task F)       :crit, active, tF, 20, 25
+    Milestone 5 - Feature Freeze  :milestone, m5, 25, 0
+
+    section Quality Assurance
+    Comprehensive Testing (Task G):crit, active, tG, 25, 30
+    Milestone 6 - UAT & Rollout   :milestone, m6, 30, 0

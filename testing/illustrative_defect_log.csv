@@ -1,0 +1,9 @@
+Defect_ID,Severity,Module_Affected,Task_Code,Description,Root_Cause,Resolution_Summary,Status,Test_Phase
+DEF-001,Critical,Clash Engine,Task D,Race condition allowed double-booking under < 5ms interval,Missing row-level pessimistic lock,Added SELECT ... FOR UPDATE in PostgreSQL transaction,Closed,System Stress Test
+DEF-002,High,Timetable Parser,Task C,Parser truncated multi-lab class entries sharing course code,Regex comma splitting error in CSV parser,Refactored parser to support quoted composite fields,Closed,Integration Test
+DEF-003,High,Quota Service,Task D,Quota balance decremented into negative numbers on fast double-click,Unchecked transaction decrement,Added balance check constraint: CHECK (remaining >= 0),Closed,Integration Test
+DEF-004,Medium,Check-In Console,Task E,Camera scanner failed on low-contrast smartphone screens,Missing camera gamma and threshold filter,Implemented adaptive thresholding in JavaScript QR scanner,Closed,UAT Testing
+DEF-005,Medium,Reporting Service,Task F,Aggregation query timed out (> 5.0s) on 6-month historical logs,Missing composite index on booking_date and dept_id,Added composite index on (booking_date, department_id),Closed,Performance Test
+DEF-006,Low,Notification Service,Task D,Notification email layout broke on Microsoft Outlook desktop,Inline CSS styling compatibility bug,Replaced CSS grid with table-based email template,Closed,System Test
+DEF-007,Medium,Booking UI,Task D,14-lab matrix misaligned on mobile viewport < 375px width,CSS overflow property missing on slot grid,Added responsive horizontal scroll wrapper on mobile,Closed,Usability Test
+DEF-008,Low,Daemon Sweeper,Task E,No-show cron daemon drifted by 45 seconds on high server load,Thread sleep interval drift,Replaced sleep loop with quartz cron schedule trigger,Closed,Reliability Test

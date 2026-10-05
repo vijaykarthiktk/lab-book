@@ -1,0 +1,64 @@
+@startuml LabBook_UseCase_Diagram
+title LabBook - Use Case Diagram (IEEE 830 Mapping)
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam monochrome false
+skinparam shadowing true
+
+actor "Student" as student
+actor "Lab Assistant" as assistant
+actor "Department Coordinator" as coordinator
+actor "Timetable Officer" as timetable_officer
+actor "System Administrator" as admin
+
+rectangle "LabBook System Boundary" {
+    usecase "UC-01: Authenticate via LDAP" as UC_Auth
+    usecase "UC-02: Query Real-Time Lab Availability" as UC_Query
+    usecase "UC-03: Book Free Lab Slot" as UC_Book
+    usecase "UC-04: Validate Department Quota" as UC_Quota
+    usecase "UC-05: Check Timetable Conflict" as UC_Clash
+    usecase "UC-06: Cancel Reservation" as UC_Cancel
+    usecase "UC-07: Verify & Check-In Student" as UC_CheckIn
+    usecase "UC-08: Process No-Show & Reclaim" as UC_NoShow
+    usecase "UC-09: Import Semester Timetable" as UC_Import
+    usecase "UC-10: Manage Department Quota Caps" as UC_ManageQuota
+    usecase "UC-11: Generate Utilization Analytics" as UC_Reports
+    usecase "UC-12: Dispatch Notifications" as UC_Notify
+}
+
+' Student interactions
+student --> UC_Auth
+student --> UC_Query
+student --> UC_Book
+student --> UC_Cancel
+
+' Assistant interactions
+assistant --> UC_Auth
+assistant --> UC_CheckIn
+assistant --> UC_Query
+
+' Coordinator interactions
+coordinator --> UC_Auth
+coordinator --> UC_Reports
+
+' Timetable Officer interactions
+timetable_officer --> UC_Auth
+timetable_officer --> UC_Import
+
+' Admin interactions
+admin --> UC_Auth
+admin --> UC_ManageQuota
+admin --> UC_Reports
+admin --> UC_NoShow
+
+' Include & Extend relationships
+UC_Book ..> UC_Auth : <<include>>
+UC_Book ..> UC_Quota : <<include>>
+UC_Book ..> UC_Clash : <<include>>
+UC_Book ..> UC_Notify : <<include>>
+UC_CheckIn ..> UC_Auth : <<include>>
+UC_Cancel ..> UC_Notify : <<include>>
+UC_NoShow ..> UC_Notify : <<extend>>
+UC_Import ..> UC_Auth : <<include>>
+
+@enduml

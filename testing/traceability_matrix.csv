@@ -1,0 +1,12 @@
+FR_ID,Functional_Requirement_Name,Use_Case_ID,Test_Case_ID,Expected_Verification_Result,MoSCoW_Priority
+FR-01,User Authentication & RBAC,UC-01,TC-01,LDAP authentication verified; role route guards enforce HTTP 403 on unauth,Must Have
+FR-02,Timetable Schedule Import,UC-09,TC-02,416 records parsed; precisely 62% aggregate capacity booked for curricular,Must Have
+FR-03,Real-Time Availability Matrix,UC-02,TC-03,14x8 grid renders in <= 1.0s under peak query concurrency,Must Have
+FR-04,Department Quota Enforcement,UC-04,TC-04,Booking blocked with descriptive error when department quota balance is zero,Must Have
+FR-05,Student Free-Slot Booking,UC-03,TC-05,Slot confirmed; quota decremented; QR token generated in <= 1.5s,Must Have
+FR-06,Automated Clash Prevention,UC-05,TC-06,50-thread race yields exactly 1 success (200 OK) and 49 rejections (409 Conflict),Must Have
+FR-07,Self-Service Cancellation,UC-06,TC-07,Slot freed and department quota refunded +1 if cancelled >= 30 min before start,Should Have
+FR-08,Lab Assistant Check-In,UC-07,TC-08,QR code scan updates status to CHECKED_IN within 500ms,Must Have
+FR-09,Automated No-Show Reclamation,UC-08,TC-09,Daemon reclaims slot to AVAILABLE at T+15m and logs student penalty,Should Have
+FR-10,Notification & PDF Receipt,UC-12,TC-10,Signed PDF receipt and transactional email delivered in <= 5.0s,Could Have
+FR-11,Utilization Analytics Engine,UC-11,TC-11,Aggregated utilization and quota consumption metrics render in <= 2.5s,Should Have

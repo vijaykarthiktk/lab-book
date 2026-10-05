@@ -1,0 +1,13 @@
+Partition_ID,Domain_Category,Equivalence_Class_Description,Class_Type,Sample_Input,Expected_Outcome,Pass_Fail
+EP-SLOT-01,Lab Slot Status,Slot is marked AVAILABLE in database,Valid,Lab 01 Slot 3 (Free),Accept Booking Request,PASS
+EP-SLOT-02,Lab Slot Status,Slot is occupied by TIMETABLE Class,Invalid,Lab 01 Slot 1 (Curricular),Reject: Timetable Conflict,PASS
+EP-SLOT-03,Lab Slot Status,Slot is already BOOKED by Student,Invalid,Lab 01 Slot 4 (Booked),Reject: Slot Already Reserved,PASS
+EP-SLOT-04,Lab Slot Status,Slot is held under MAINTENANCE,Invalid,Lab 01 Slot 8 (Maintenance),Reject: Laboratory Out of Service,PASS
+EP-QUOTA-01,Department Quota,Department quota balance > 0 (1 to 42),Valid,Quota Balance = 15 slots,Accept Booking Request,PASS
+EP-QUOTA-02,Department Quota,Department quota balance == 0 (Exhausted),Invalid,Quota Balance = 0 slots,Reject: Quota Limit Reached,PASS
+EP-QUOTA-03,Department Quota,Department quota balance < 0 (Corrupted),Invalid,Quota Balance = -2 slots,Reject: Quota Violation Error,PASS
+EP-DEPT-01,Department Identity,Valid registered department (1 of 6 depts),Valid,Dept: Computer Science (CSE),Accept Department Identity,PASS
+EP-DEPT-02,Department Identity,Non-existent or unregistered department ID,Invalid,Dept: External Architecture (ARC),Reject: Unknown Department,PASS
+EP-USER-01,Student Credential,Active enrolled student with zero bans,Valid,Roll: CS23B012 (Active),Accept Authentication,PASS
+EP-USER-02,Student Credential,Inactive or expired student account,Invalid,Roll: CS18B099 (Graduated),Reject: Inactive Account,PASS
+EP-USER-03,Student Credential,Suspended student (>= 3 No-Shows),Invalid,Roll: IT24B045 (3 Penalties),Reject: Booking Privileges Suspended,PASS

@@ -1,0 +1,8 @@
+Task_Code,Task_Name,Duration_Days,Predecessors,ES,EF,LS,LF,Total_Float,Free_Float,Is_Critical,Start_Day,Finish_Day
+Task A,Requirements,4,None,0,4,0,4,0,0,TRUE,Day 1,Day 4
+Task B,Quota policy agreement,5,Task A,4,9,5,10,1,1,FALSE,Day 5,Day 9
+Task C,Timetable import,6,Task A,4,10,4,10,0,0,TRUE,Day 5,Day 10
+Task D,Booking module,10,Task B AND Task C,10,20,10,20,0,0,TRUE,Day 11,Day 20
+Task E,Check-in module,5,Task D,20,25,20,25,0,0,TRUE,Day 21,Day 25
+Task F,Reports,5,Task D,20,25,20,25,0,0,TRUE,Day 21,Day 25
+Task G,Testing,5,Task E AND Task F,25,30,25,30,0,0,TRUE,Day 26,Day 30

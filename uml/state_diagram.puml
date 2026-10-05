@@ -1,0 +1,23 @@
+@startuml LabBook_State_Diagram
+title LabBook - Slot Reservation Lifecycle State Machine Diagram
+skinparam monochrome false
+skinparam shadowing true
+
+[*] --> AVAILABLE : Timetable Import completes\n[Slot unallocated]
+
+AVAILABLE --> HELD : Student clicks 'Select Slot'\n[Temporary lock acquired (5 min)]
+HELD --> AVAILABLE : Session timeout / User abandons\n[Lock released]
+
+HELD --> CONFIRMED : Validation passed (Quota & Clash OK)\n+ Confirm button clicked\n[Quota decremented, QR issued]
+
+CONFIRMED --> CHECKED_IN : Student arrives within 15 min\n+ Assistant scans QR code
+CONFIRMED --> NO_SHOW : Grace period expired (T > 15 min)\n[Daemon reclaims slot, Penalty logged]
+CONFIRMED --> CANCELLED : Student cancels >= 30 min before start\n[Quota refunded, Slot freed]
+
+CHECKED_IN --> COMPLETED : Slot duration elapses\n+ Session concluded
+
+CANCELLED --> AVAILABLE : Slot re-enters public booking pool
+NO_SHOW --> AVAILABLE : Slot re-enters public booking pool
+COMPLETED --> [*]
+
+@enduml

@@ -1,0 +1,94 @@
+@startuml LabBook_Sequence_Diagram
+title LabBook - Sequence Diagram: "Book a Free Lab Slot and Check In"
+autonumber
+skinparam monochrome false
+skinparam shadowing true
+skinparam BoxPadding 10
+
+actor "Student" as S
+boundary "Web UI" as UI
+control "Booking Service" as BS
+control "Timetable Service" as TS
+control "Quota Service" as QS
+database "Booking DB" as DB
+actor "Lab Assistant" as LA
+control "CheckIn Service" as CS
+
+== 1. Authentication & Slot Discovery ==
+S -> UI : 1. Submit login credentials (LDAP)
+activate UI
+UI -> BS : 2. Authenticate user
+activate BS
+BS --> UI : 3. Session established (Role: Student)
+deactivate BS
+
+S -> UI : 4. Search free slots (Date: Day 12, Lab 04)
+UI -> BS : 5. Request lab schedule
+activate BS
+BS -> DB : 6. Query slot availability matrix
+activate DB
+DB --> BS : 7. Return slot raw records
+deactivate DB
+BS --> UI : 8. Render grid (Slot 3 is Available)
+deactivate BS
+
+== 2. Booking Transaction with Alternate Paths ==
+S -> UI : 9. Select Slot 3 & confirm booking request
+UI -> BS : 10. Execute bookSlot(StudentId, Lab04, Slot3)
+activate BS
+
+BS -> TS : 11. checkCurricularConflict(Lab04, Slot3, Date)
+activate TS
+alt Timetable Conflict Exists
+    TS --> BS : Conflict detected (Curricular Class active)
+    BS --> UI : 12a. Error: Slot reserved for Timetabled Class
+    UI --> S : Display rejection notice
+else Timetable Slot Free
+    TS --> BS : Slot free of curricular classes
+    deactivate TS
+
+    BS -> QS : 13. verifyAndLockQuota(DepartmentId)
+    activate QS
+    alt Department Quota Depleted (Used >= Cap)
+        QS --> BS : Quota exceeded
+        BS --> UI : 14a. Error: Department weekly quota exhausted
+        UI --> S : Display quota limit error
+    else Quota Available
+        QS --> BS : Quota approved
+        deactivate QS
+
+        BS -> DB : 15. Lock & Update Slot [Pessimistic Lock]
+        activate DB
+        alt Concurrency Collision (Slot already claimed by another user)
+            DB --> BS : Lock acquisition failed / Record dirty
+            BS --> UI : 16a. Error: Slot was just booked by another user
+            UI --> S : Display clash collision error
+        else Slot Successfully Locked
+            DB -> DB : Update status: 'CONFIRMED'
+            DB -> DB : Decrement Department Quota (-1)
+            DB --> BS : Transaction committed (BookingId: BK-9842)
+            deactivate DB
+
+            BS --> UI : 17. Booking confirmed + QR Token
+            deactivate BS
+            UI --> S : 18. Display confirmation slip & dispatch email
+        end
+    end
+end
+
+== 3. Physical Arrival & Check-In Verification ==
+note over S, LA : Student arrives at Lab 04 within grace period (T <= 15 min)
+S -> LA : 19. Present digital QR Booking Token
+LA -> CS : 20. Scan QR code via Assistant Console
+activate CS
+CS -> DB : 21. Validate token & fetch booking status
+activate DB
+DB --> CS : 22. Status: CONFIRMED, Grace Period: Valid
+CS -> DB : 23. Update status: 'CHECKED_IN', log timestamp
+DB --> CS : 24. Acknowledge commit
+deactivate DB
+CS --> LA : 25. Check-In approved (Green confirmation screen)
+deactivate CS
+LA --> S : 26. Assign workstation & allow lab entry
+
+@enduml

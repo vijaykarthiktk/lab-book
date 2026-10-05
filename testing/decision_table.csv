@@ -1,0 +1,11 @@
+Rule_ID,Valid_Authenticated_Student,Slot_Timetabled_Curricular,Slot_Already_Booked,Dept_Quota_Available,Advance_Window_Valid_LE_7d,Student_Under_Sanction,DB_Concurrency_Lock_Acquired,System_Action,HTTP_Response_Code
+R01,False,N/A,N/A,N/A,N/A,N/A,N/A,Reject: Authentication Failure,401 Unauthorized
+R02,True,True,N/A,N/A,N/A,N/A,N/A,Reject: Curricular Timetable Conflict,409 Conflict
+R03,True,False,True,N/A,N/A,N/A,N/A,Reject: Slot Already Reserved,409 Conflict
+R04,True,False,False,False,N/A,N/A,N/A,Reject: Department Quota Exhausted,403 Forbidden
+R05,True,False,False,True,False,N/A,N/A,Reject: Beyond 7-Day Advance Window,400 Bad Request
+R06,True,False,False,True,True,True,N/A,Reject: Student Account Suspended (No-Show Strikes),403 Forbidden
+R07,True,False,True,False,N/A,N/A,N/A,Reject: Quota Exhausted AND Slot Already Reserved,409 Conflict
+R08,True,True,N/A,False,N/A,N/A,N/A,Reject: Quota Exhausted AND Timetable Conflict,409 Conflict
+R09,True,False,False,True,True,False,False,Reject: Concurrency Race Collision (Retry),409 Conflict
+R10,True,False,False,True,True,False,True,Accept & Confirm Reservation (Issue QR Token),200 OK

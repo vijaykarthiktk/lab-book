@@ -1,0 +1,7 @@
+Metric_Name,Formula,Input_Variables_and_Values,Intermediate_Substitution,Final_Result,Unit,Target_Benchmark,Academic_Status
+Defect Density,Confirmed Pre-Release Defects / Software Size in KLOC,"Pre-Release Defects = 39, Size = 5.2 KLOC",39 / 5.2,7.50,defects/KLOC,"5.0 - 10.0 defects/KLOC",Meets Standard
+Defect Removal Efficiency (DRE),"[D_before / (D_before + D_after)] * 100","D_before = 39, D_after = 3, D_total = 42","[39 / (39 + 3)] * 100 = (39 / 42) * 100",92.86,Percentage,"Target >= 90.0%",Exceeds Target
+Total Software Defects,"D_before + D_after","D_before = 39, D_after = 3",39 + 3,42,Total Defects,N/A,Illustrative Test Data
+Pre-Release Defect Count,Count of verified defects found before release,Verified in System & UAT testing,39 defects,39,Defects,N/A,Remediated 100%
+Post-Release Latent Defects,Count of defects reported within 30 days of release,Reported in operational pilot,3 defects,3,Defects,N/A,Patched in Maintenance
+Software Size Assumption,Logical Source Lines of Code (SLOC),Microservices backend + React frontend + DB migrations,5200 SLOC / 1000,5.20,KLOC,N/A,Documented Baseline

@@ -1,0 +1,137 @@
+@startuml LabBook_Class_Diagram
+title LabBook - Domain Model Class Diagram
+skinparam classAttributeIconSize 0
+skinparam monochrome false
+skinparam shadowing true
+
+enum Role {
+    STUDENT
+    LAB_ASSISTANT
+    DEPT_COORDINATOR
+    TIMETABLE_OFFICER
+    SYSTEM_ADMIN
+}
+
+enum BookingStatus {
+    AVAILABLE
+    HELD
+    CONFIRMED
+    CHECKED_IN
+    COMPLETED
+    CANCELLED
+    NO_SHOW
+}
+
+abstract class User {
+    - userId: String
+    - name: String
+    - email: String
+    - role: Role
+    - departmentId: String
+    + login(): Boolean
+    + logout(): Void
+}
+
+class Student {
+    - rollNumber: String
+    - semester: Integer
+    - activePenalties: Integer
+    + searchSlots(date: Date): List<LabSlot>
+    + bookSlot(slotId: String, purpose: String): Booking
+    + cancelBooking(bookingId: String): Boolean
+}
+
+class Department {
+    - departmentId: String
+    - departmentName: String
+    - code: String
+    - totalAllocatedQuota: Integer
+    - remainingQuota: Integer
+    + decrementQuota(): Boolean
+    + incrementQuota(): Void
+    + resetWeeklyQuota(): Void
+}
+
+class Lab {
+    - labId: String
+    - labName: String
+    - capacityWorkstations: Integer
+    - locationBlock: String
+    - isOperational: Boolean
+    + getDailySchedule(date: Date): List<LabSlot>
+}
+
+class LabSlot {
+    - slotId: String
+    - slotNumber: Integer
+    - startTime: Time
+    - endTime: Time
+    - dayOfWeek: String
+    - status: BookingStatus
+    + lockSlot(): Boolean
+    + releaseSlot(): Void
+}
+
+class TimetableEntry {
+    - entryId: String
+    - academicYear: String
+    - semester: Integer
+    - subjectCode: String
+    - facultyInCharge: String
+    + validateEntry(): Boolean
+}
+
+class Booking {
+    - bookingId: String
+    - bookingDate: Date
+    - purpose: String
+    - status: BookingStatus
+    - tokenQrCode: String
+    - createdAt: DateTime
+    + confirmBooking(): Boolean
+    + cancel(): Void
+    + markNoShow(): Void
+}
+
+class CheckIn {
+    - checkInId: String
+    - checkInTimestamp: DateTime
+    - verifiedByAssistantId: String
+    - isLate: Boolean
+    + recordCheckIn(): Boolean
+}
+
+class Quota {
+    - quotaId: String
+    - weeklyAllowance: Integer
+    - currentUsed: Integer
+    - weekStartDate: Date
+    + hasAvailableQuota(): Boolean
+    + consumeSlot(): Void
+}
+
+class Notification {
+    - notificationId: String
+    - recipientEmail: String
+    - messagePayload: String
+    - dispatchTimestamp: DateTime
+    + sendEmail(): Boolean
+}
+
+' Inheritance
+User <|-- Student
+
+' Associations and Multiplicities
+Department "1" *-- "0..*" User : employs/enrolls
+Department "1" *-- "1" Quota : allocated
+Lab "1" *-- "8" LabSlot : contains
+
+LabSlot "1" -- "0..1" TimetableEntry : scheduled_by
+LabSlot "1" -- "0..*" Booking : reserved_under
+
+Student "1" -- "0..*" Booking : creates
+Booking "1" -- "0..1" CheckIn : verified_by
+Booking "1" ..> "1..*" Notification : generates
+Department "1" -- "0..*" Booking : accounts_for
+
+@enduml

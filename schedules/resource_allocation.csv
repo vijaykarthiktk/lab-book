@@ -1,0 +1,8 @@
+Role_Title,Core_Responsibilities,Approx_Involvement,Active_Project_Days,Key_Deliverable,RACI_Role
+Project Manager (PM),Schedule governance; critical path audit; risk mitigation; stakeholder coordination,100%,Days 1-30,CPM Schedule & Closure Report,Accountable
+Business Analyst (BA),Requirements elicitation; user stories; quota policy mediation across 6 depts,40%,Days 1-10,IEEE 830 SRS & Quota Agreement,Responsible
+UI/UX Front-End Designer,Wireframing; responsive 14-lab matrix UI; mobile QR check-in assistant interface,50%,Days 8-22,React Dashboard & Scan Console,Responsible
+Senior Backend Developer,REST API; concurrency locking; timetable parser; no-show cron daemon,100%,Days 5-25,Microservices & API Endpoints,Responsible
+Database Administrator,Schema design; PostgreSQL row locks; ACID transactions; indexing; Redis caching,40%,Days 4-22,Relational DB & Query Profiling,Responsible
+QA Automation Engineer,BVA/EP test cases; JMeter concurrency; regression suites; defect tracking,60%,Days 15-30,Test Suites & Traceability,Responsible
+DevOps / SysAdmin,CI/CD pipelines; LDAP/SSO integration; container orchestration; production deploy,30%,Days 1-5 and 25-30,Docker / Nginx Infrastructure,Consulted

@@ -1,0 +1,17 @@
+Test_ID,Domain_Category,Field_Tested,Boundary_Type,Input_Value,Expected_System_Behavior,Pass_Fail
+BVA-Q-01,Department Quota,Weekly Quota Bucket,Below Min (Invalid),-1 slots,Reject: System validation error; balance cannot be negative,PASS
+BVA-Q-02,Department Quota,Weekly Quota Bucket,Minimum (Exhausted),0 slots,Reject: "Department Quota Limit Reached"; transaction blocked,PASS
+BVA-Q-03,Department Quota,Weekly Quota Bucket,Min + 1 (Critical),1 slot,Accept: Allow 1 booking; balance transitions to 0,PASS
+BVA-Q-04,Department Quota,Weekly Quota Bucket,Nominal Center,21 slots,Accept: Allow booking; balance transitions to 20,PASS
+BVA-Q-05,Department Quota,Weekly Quota Bucket,Max - 1 (High),41 slots,Accept: Allow booking; balance transitions to 40,PASS
+BVA-Q-06,Department Quota,Weekly Quota Bucket,Maximum Cap,42 slots,Accept: Allow booking; balance transitions to 41,PASS
+BVA-Q-07,Department Quota,Weekly Quota Bucket,Above Max (Invalid),43 slots,Reject: Quota overflow violation; cap cannot exceed 42,PASS
+BVA-S-01,Slot Index,Daily Slot Number,Below Min (Invalid),Slot 0,Reject: "Invalid Slot Number. Allowed range: 1 to 8",PASS
+BVA-S-02,Slot Index,Daily Slot Number,Minimum Valid,Slot 1 (09:00),Accept: Display and permit booking for Slot 1,PASS
+BVA-S-03,Slot Index,Daily Slot Number,Min + 1 Valid,Slot 2 (10:00),Accept: Display and permit booking for Slot 2,PASS
+BVA-S-04,Slot Index,Daily Slot Number,Max - 1 Valid,Slot 7 (15:00),Accept: Display and permit booking for Slot 7,PASS
+BVA-S-05,Slot Index,Daily Slot Number,Maximum Valid,Slot 8 (16:00),Accept: Display and permit booking for Slot 8,PASS
+BVA-S-06,Slot Index,Daily Slot Number,Above Max (Invalid),Slot 9,Reject: "Slot Index Out of Range. Max slot is 8",PASS
+BVA-D-01,Booking Horizon,Advance Booking Days,Minimum Horizon,Day 0 (Today),Accept: Permit same-day immediate booking,PASS
+BVA-D-02,Booking Horizon,Advance Booking Days,Maximum Horizon,Day 7,Accept: Permit advance booking on Day 7,PASS
+BVA-D-03,Booking Horizon,Advance Booking Days,Above Max Horizon,Day 8,Reject: "Reservations restricted to a rolling 7-day window",PASS
