@@ -1,19 +1,22 @@
 # B.TECH CSE SEMESTER III — ACADEMIC CASE STUDY EVALUATION
+
 ## COURSE CODE: CS302 / IT301 — SOFTWARE ENGINEERING & PROJECT MANAGEMENT (SEPM)
 
 ---
 
 # CASE STUDY NO. 150: LabBook
+
 ## Computer Lab Slot Booking & Quota Management System for an Engineering College
 
-**Academic Year:** 2026–2027 | **Semester:** III | **Department:** Computer Science & Engineering  
-**Prepared by:** Senior SEPM Academic Directorate & Chief Software Architecture Team  
-**Evaluation Standard:** IEEE 830-1998, ISO/IEC/IEEE 12207, PMI PMBOK Guide 7th Ed.  
+**Academic Year:** 2026–2027 | **Semester:** III | **Department:** Computer Science & Engineering
+**Prepared by:** Senior SEPM Academic Directorate & Chief Software Architecture Team
+**Evaluation Standard:** IEEE 830-1998, ISO/IEC/IEEE 12207, PMI PMBOK Guide 7th Ed.
 **Document Classification:** Complete Submission-Ready Solution Portfolio
 
 ---
 
 ## TABLE OF CONTENTS
+
 1. Cover Page & Metadata
 2. Executive Summary
 3. Problem Statement & Operational Context
@@ -98,6 +101,7 @@ DOCUMENT VERSION:
 # 2. EXECUTIVE SUMMARY
 
 The contemporary operational model of the institution comprises 14 computing laboratories shared across 6 academic engineering departments. Currently, the allocation of computing labs for curricular practicals, co-curricular project development, competitive hackathons, remedial sessions, and high-stakes certification examinations is administered manually via physical paper registers maintained by laboratory assistants. This manual protocol has precipitated severe operational bottlenecks:
+
 1. **Frequent Double-Bookings and Scheduling Clashes:** The lack of real-time multi-department concurrency controls leads to simultaneous reservations of the same laboratory.
 2. **Opacity of Facility Availability:** Students have zero remote visibility into available lab slots, suppressing practice time and research activities.
 3. **Inter-Departmental Friction:** Departments accuse one another of monopolizing specialized labs, driven by the absence of transparent quota enforcement.
@@ -113,11 +117,12 @@ This submission presents a full IEEE 830-standard Software Requirements Specific
 
 # 3. PROBLEM STATEMENT
 
-An autonomous engineering college manages **14 computer laboratories** designated for practical instruction across **6 academic engineering departments** (Computer Science, Information Technology, Electronics & Communication, Electrical & Electronics, Mechanical Engineering, and Civil Engineering / AI-DS). 
+An autonomous engineering college manages **14 computer laboratories** designated for practical instruction across **6 academic engineering departments** (Computer Science, Information Technology, Electronics & Communication, Electrical & Electronics, Mechanical Engineering, and Civil Engineering / AI-DS).
 
 Presently, lab allocations for non-timetabled events—such as student project work, programming contests, research simulations, make-up lab sessions, and external certification exams (e.g., NPTEL, AWS, RedHat)—are governed through physical registers kept at the desk of respective laboratory assistants.
 
 ### Core Systemic Failures:
+
 1. **Frequent Clashes and Double-Bookings:** Due to distributed, uncoordinated physical registers, two departments or student cohorts frequently arrive at the same facility simultaneously, resulting in academic disruption and administrative disputes.
 2. **Total Lack of Real-Time Visibility:** Students have no digital access to laboratory availability schedules. Identifying a free workstation requires physically traversing 14 laboratories across multiple academic blocks.
 3. **Departmental Hoarding and Quota Disputes:** Certain departments reserve facilities indefinitely through informal arrangements with lab technicians, denying access to smaller departments and violating institutional equity principles.
@@ -131,6 +136,7 @@ Presently, lab allocations for non-timetabled events—such as student project w
 The overarching objective of the **LabBook** project is to conceive, design, implement, and validate an automated, transparent, auditable, and resilient computer lab slot reservation and quota management ecosystem.
 
 ### Specific Engineering & Management Objectives:
+
 1. **Automate Timetable Ingestion:** Build an automated parsing engine to import semester-wise curricular timetable allocations (accounting for 62% baseline occupancy) from standardized college spreadsheets/CSV exports into the centralized database prior to the commencement of teaching.
 2. **Provide Real-Time Transparent Availability:** Deliver an interactive, responsive graphical dashboard reflecting real-time lab slot states across all 14 laboratories for any selected date within a rolling 7-day booking horizon.
 3. **Enforce Departmental Quotas Algorithmatically:** Enforce mathematical slot quota caps per department for non-curricular bookings, preventing resource monopolization while facilitating equitable access across all 6 departments.
@@ -144,6 +150,7 @@ The overarching objective of the **LabBook** project is to conceive, design, imp
 # 5. SCOPE
 
 ### In-Scope Functional Capabilities:
+
 - Centralized user authentication integrated with institutional LDAP/Single Sign-On (SSO) supporting five user roles: Student, Lab Assistant, Department Coordinator, Timetable Officer, and System Administrator.
 - Bulk tabular parsing and validation of institutional master timetables (CSV/XLSX) with conflict checking.
 - Automated allocation and tracking of weekly departmental quota buckets across the 6 departments.
@@ -155,6 +162,7 @@ The overarching objective of the **LabBook** project is to conceive, design, imp
 - Analytical reporting engine delivering departmental consumption, capacity distribution, and anomaly metrics.
 
 ### Out-of-Scope (Future Releases / Deliberate Exclusions):
+
 - Direct hardware power-cycling or remote desktop power management via Wake-on-LAN (WoL).
 - Integration with campus physical turnstile access-control hardware (deferred to Release 2.0).
 - Automatic generation or optimization of the master academic class timetable (the system *imports* timetables; it does not *generate* them).
@@ -165,6 +173,7 @@ The overarching objective of the **LabBook** project is to conceive, design, imp
 # 6. ASSUMPTIONS AND CONSTRAINTS
 
 ### 6.1 System Assumptions:
+
 1. **Academic Operational Rhythm:** The college operates on a standard 6-day academic week (Monday through Saturday), with Sunday reserved exclusively for deep preventative maintenance and system batch operations.
 2. **Slot Granularity:** The academic working day is partitioned into exactly 8 discrete operational periods/slots of equal duration (e.g., 60 minutes each, typically 09:00 to 17:00).
 3. **Stable Network Infrastructure:** All 14 physical computer labs maintain wired Local Area Network (LAN) and campus Wi-Fi connectivity linking terminal workstations and lab assistant consoles to the central campus intranet server.
@@ -172,6 +181,7 @@ The overarching objective of the **LabBook** project is to conceive, design, imp
 5. **Student Identification:** Every enrolled student possesses a valid institutional email ID, student roll number, and a physical/digital student identification barcode.
 
 ### 6.2 System Constraints (Mandatory Project Realities):
+
 1. **Physical Capacity Constraint:** The institutional infrastructure is physically bounded to exactly **14 computer laboratories**. No virtual or auxiliary labs may be added to capacity calculations.
 2. **Departmental Inclusivity Constraint:** The system must strictly apportion non-timetabled capacity among exactly **6 academic departments** without excluding any branch.
 3. **Temporal Bounds:** Exactly **8 slots per day** across a **6-day operational week**, establishing an immutable theoretical ceiling of $14 \times 8 \times 6 = 672$ total laboratory slots per week.
@@ -185,13 +195,13 @@ The overarching objective of the **LabBook** project is to conceive, design, imp
 
 The requirements engineering and operational workflows were formulated through systematic engagement with five distinct stakeholder groups.
 
-| Stakeholder Role | Primary Responsibilities & Interests | Elicitation Methodology | Pain Points Addressed |
-|---|---|---|---|
-| **Student** | Seeks friction-free access to computing environments for coding assignments, capstone projects, and self-paced certification preparation. | Structured Student Surveys ($N=180$), Student Council Focus Groups | Inability to identify free slots without walking across campus; being turned away by lab staff due to informal reservations. |
-| **Department Coordinator** | Protects the department's academic interests; ensures equitable quota allocations for departmental electives and research. | Semi-Structured Interviews ($N=6$ Heads of Dept & Coordinators) | Inter-departmental disputes regarding lab monopolization; lack of visibility into departmental resource consumption. |
-| **Lab Assistant** | Manages physical laboratory equipment, enforces discipline, verifies attendance, and ensures hardware security. | Contextual Inquiry, Physical Register Examination & Walkthroughs | Harassment from students during disputes; manual paper logbook overhead; unverified ghost bookings blocking legitimate users. |
-| **Timetable Officer** | Coordinates institutional room assignments and master semester curricular schedules across all branches. | Spreadsheet Audit, Institutional Timetable Workflow Analysis | Manual reconciliation of timetable clashes; emergency room-swapping confusion during semester transitions. |
-| **System Administrator** | Oversees database integrity, system availability, authentication integration, user provisioning, and audit logs. | Technical Architecture Workshops, Network Security Reviews | Concurrency deadlocks; uncontrolled database bloat; unauthorized administrative privilege escalation. |
+| Stakeholder Role                 | Primary Responsibilities & Interests                                                                                                      | Elicitation Methodology                                              | Pain Points Addressed                                                                                                         |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| **Student**                | Seeks friction-free access to computing environments for coding assignments, capstone projects, and self-paced certification preparation. | Structured Student Surveys ($N=180$), Student Council Focus Groups | Inability to identify free slots without walking across campus; being turned away by lab staff due to informal reservations.  |
+| **Department Coordinator** | Protects the department's academic interests; ensures equitable quota allocations for departmental electives and research.                | Semi-Structured Interviews ($N=6$ Heads of Dept & Coordinators)    | Inter-departmental disputes regarding lab monopolization; lack of visibility into departmental resource consumption.          |
+| **Lab Assistant**          | Manages physical laboratory equipment, enforces discipline, verifies attendance, and ensures hardware security.                           | Contextual Inquiry, Physical Register Examination & Walkthroughs     | Harassment from students during disputes; manual paper logbook overhead; unverified ghost bookings blocking legitimate users. |
+| **Timetable Officer**      | Coordinates institutional room assignments and master semester curricular schedules across all branches.                                  | Spreadsheet Audit, Institutional Timetable Workflow Analysis         | Manual reconciliation of timetable clashes; emergency room-swapping confusion during semester transitions.                    |
+| **System Administrator**   | Oversees database integrity, system availability, authentication integration, user provisioning, and audit logs.                          | Technical Architecture Workshops, Network Security Reviews           | Concurrency deadlocks; uncontrolled database bloat; unauthorized administrative privilege escalation.                         |
 
 ---
 
@@ -200,6 +210,7 @@ The requirements engineering and operational workflows were formulated through s
 ## 8.1 Functional Requirements (Exactly 11 FRs)
 
 ### FR-01: User Authentication & Role-Based Access Control (RBAC)
+
 - **Stakeholder:** System Administrator, All Users
 - **Priority:** Must Have (P1)
 - **Description:** The system shall authenticate all users (Students, Lab Assistants, Department Coordinators, Timetable Officers, and Administrators) via the campus LDAP/Active Directory protocol and enforce role-based authorization boundaries restricting access to specific UI views and API endpoints.
@@ -207,6 +218,7 @@ The requirements engineering and operational workflows were formulated through s
 - **Related Test Case:** TC-01
 
 ### FR-02: Timetable Class Schedule Import & Ingestion
+
 - **Stakeholder:** Timetable Officer, System Administrator
 - **Priority:** Must Have (P1)
 - **Description:** The system shall provide an administrative interface allowing the Timetable Officer to upload standardized CSV/Excel semester timetable schedules containing Lab ID, Day, Slot Number, Department, Course Code, and Faculty In-Charge, automatically populating recurring non-bookable slots.
@@ -214,6 +226,7 @@ The requirements engineering and operational workflows were formulated through s
 - **Related Test Case:** TC-02
 
 ### FR-03: Real-Time Laboratory Slot Availability Query
+
 - **Stakeholder:** Student, Department Coordinator, Lab Assistant
 - **Priority:** Must Have (P1)
 - **Description:** The system shall dynamically render a 14-lab matrix display across the 8 daily slots for any selected date within a rolling 7-day window, color-coding each slot as: *Curricular (Timetabled)*, *Booked (Student)*, *Available (Free)*, or *Maintenance/Hold*.
@@ -221,6 +234,7 @@ The requirements engineering and operational workflows were formulated through s
 - **Related Test Case:** TC-03
 
 ### FR-04: Departmental Quota Allocation & Enforcement
+
 - **Stakeholder:** Department Coordinator, System Administrator
 - **Priority:** Must Have (P1)
 - **Description:** The system shall enforce weekly departmental slot allowances based on agreed institutional policy across the 6 departments, continuously decrementing available quota upon confirmed student reservations and blocking booking attempts once a department's weekly cap is exhausted.
@@ -228,13 +242,15 @@ The requirements engineering and operational workflows were formulated through s
 - **Related Test Case:** TC-04
 
 ### FR-05: Student Free-Slot Self-Booking Engine
+
 - **Stakeholder:** Student
 - **Priority:** Must Have (P1)
 - **Description:** The system shall allow an authenticated student possessing available departmental quota to select an *Available* lab slot, declare an academic purpose (e.g., Project Work, Coding Practice, Exam Prep), and confirm the reservation.
 - **Acceptance Criterion:** Upon user submission, the system validates eligibility, writes the reservation record atomically, updates slot status from *Available* to *Confirmed*, and generates a unique digital booking reference ID within 1.5 seconds.
 - **Related Test Case:** TC-05
 
-### FR-06: Automated Booking Clash Detection & Prevention
+# FR-06: , Booking Clash Detection & Prevention
+
 - **Stakeholder:** Student, Lab Assistant, System Administrator
 - **Priority:** Must Have (P1)
 - **Description:** The system shall employ atomic database transactions with pessimistic row-level locking (`SELECT ... FOR UPDATE`) to evaluate overlapping bookings, preventing double-booking of any physical laboratory slot under simultaneous concurrent requests.
@@ -242,6 +258,7 @@ The requirements engineering and operational workflows were formulated through s
 - **Related Test Case:** TC-06
 
 ### FR-07: Self-Service Booking Cancellation
+
 - **Stakeholder:** Student, Lab Assistant
 - **Priority:** Should Have (P2)
 - **Description:** The system shall allow students to cancel their confirmed bookings up to 30 minutes prior to the scheduled slot start time, immediately restoring the slot to the *Available* pool and refunding 1 slot unit back to the student's departmental quota.
@@ -249,6 +266,7 @@ The requirements engineering and operational workflows were formulated through s
 - **Related Test Case:** TC-07
 
 ### FR-08: Lab Assistant Real-Time Check-In Verification
+
 - **Stakeholder:** Lab Assistant, Student
 - **Priority:** Must Have (P1)
 - **Description:** The system shall provide a streamlined, web-based verification console for Lab Assistants to validate arriving students by scanning their digital Booking QR code or entering their Student Roll Number, marking the reservation status as *Checked-In*.
@@ -256,6 +274,7 @@ The requirements engineering and operational workflows were formulated through s
 - **Related Test Case:** TC-08
 
 ### FR-09: Automated No-Show Sweep & Slot Reclamation
+
 - **Stakeholder:** Lab Assistant, System Administrator
 - **Priority:** Should Have (P2)
 - **Description:** The system shall run an automated background cron daemon every 5 minutes that identifies bookings remaining in *Confirmed* status 15 minutes past the slot start time, flags them as *No-Show*, applies a penalty strike to the student record, and transitions the slot to *Available* for on-demand walk-in booking.
@@ -263,6 +282,7 @@ The requirements engineering and operational workflows were formulated through s
 - **Related Test Case:** TC-09
 
 ### FR-10: Automated Notification & Digital Receipt Generation
+
 - **Stakeholder:** Student, Lab Assistant
 - **Priority:** Could Have (P3)
 - **Description:** The system shall dispatch an automated email and downloadable PDF confirmation slip containing a digitally signed QR code upon successful booking, cancellation, or no-show penalty application.
@@ -270,6 +290,7 @@ The requirements engineering and operational workflows were formulated through s
 - **Related Test Case:** TC-10
 
 ### FR-11: Laboratory & Quota Utilization Analytics Engine
+
 - **Stakeholder:** Department Coordinator, System Administrator, College Executive
 - **Priority:** Should Have (P2)
 - **Description:** The system shall compile and display historical and real-time analytical reports aggregating lab utilization percentage, departmental quota consumption, peak usage hours, and no-show distributions, with export capabilities to CSV and PDF formats.
@@ -319,6 +340,7 @@ Every NFR is structured with an unambiguous, quantitative, and testable performa
 The requirements are prioritized using the MoSCoW methodology to guarantee that critical academic operations are fully secured before auxiliary enhancements are introduced.
 
 ### Must Have (Mandatory for Launch):
+
 - **FR-01 (Authentication & RBAC):** Foundational security; prevents unauthorized actors from reserving college property.
 - **FR-02 (Timetable Class Ingestion):** Essential; without the 62% baseline timetable data, the system would provoke clashes with scheduled classes.
 - **FR-03 (Real-Time Availability Query):** Core functionality; solves the primary visibility bottleneck.
@@ -329,15 +351,18 @@ The requirements are prioritized using the MoSCoW methodology to guarantee that 
 - **NFR-01, NFR-02, NFR-04, NFR-05:** Absolute operational requisites for security, correctness, and performance.
 
 ### Should Have (Important but Not Crashing Release):
+
 - **FR-07 (Booking Cancellation):** Highly desirable to recycle unwanted slots back into the capacity pool.
 - **FR-09 (Automated No-Show Sweep):** Vital for operational efficiency, but manual check-in overrides can function temporarily if deferred.
 - **FR-11 (Utilization Analytics Engine):** Necessary for institutional management reviews, but operational booking can proceed while reports are finalized.
 - **NFR-03, NFR-06:** Usability refinement and code maintainability thresholds.
 
 ### Could Have (Desirable Enhancements if Bandwidth Permits):
+
 - **FR-10 (Notification & PDF Receipt Generation):** Improves student experience; on-screen confirmation codes serve as an adequate fallback.
 
 ### Won't Have (Explicitly Deferred to Version 2.0):
+
 - **Automated Master Timetable Generation Engine:** Out-of-scope; existing scheduling software handles initial timetable formulation.
 - **Hardware Wake-on-LAN and Terminal Power Cycling:** Requires IoT relays and specialized switch configurations.
 - **Biometric Fingerprint Hardware Integration:** Replaced in V1.0 by QR code scanning on mobile devices and laptops.
@@ -347,29 +372,56 @@ The requirements are prioritized using the MoSCoW methodology to guarantee that 
 # 9. CAPACITY ANALYSIS & FREE-SLOT ESTIMATION
 
 ### 9.1 Mathematical Calculation
+
 All computations strictly use the institutional figures provided without alteration.
 
 **Given Input Parameters:**
+
 - Total Number of Computer Laboratories ($N_{labs}$) = **14 labs**
 - Daily Operating Slot Granularity ($S_{day}$) = **8 slots/day**
 - Operational Days per Academic Week ($D_{week}$) = **6 days/week** (Monday through Saturday)
 - Curricular Timetabled Occupancy Ratio ($R_{classes}$) = **62%** ($0.62$)
 
 #### Step 1: Gross Weekly Institutional Lab Slot Capacity ($C_{gross}$)
-$$C_{gross} = N_{labs} \times S_{day} \times D_{week}$$
-$$C_{gross} = 14 \times 8 \times 6$$
-$$C_{gross} = 112 \times 6 = \mathbf{672\ total\ weekly\ slots}$$
+
+$$
+C_{gross} = N_{labs} \times S_{day} \times D_{week}
+$$
+
+$$
+C_{gross} = 14 \times 8 \times 6
+$$
+
+$$
+C_{gross} = 112 \times 6 = \mathbf{672\ total\ weekly\ slots}
+$$
 
 #### Step 2: Capacity Consumed by Timetabled Classes ($C_{timetabled}$)
-$$C_{timetabled} = C_{gross} \times R_{classes}$$
-$$C_{timetabled} = 672 \times 0.62 = \mathbf{416.64\ slots}$$
+
+$$
+C_{timetabled} = C_{gross} \times R_{classes}
+$$
+
+$$
+C_{timetabled} = 672 \times 0.62 = \mathbf{416.64\ slots}
+$$
 
 #### Step 3: Net Weekly Free Slots Available for Booking ($C_{free}$)
-$$C_{free} = C_{gross} - C_{timetabled}$$
-$$C_{free} = 672 - 416.64 = \mathbf{255.36\ slots}$$
+
+$$
+C_{free} = C_{gross} - C_{timetabled}
+$$
+
+$$
+C_{free} = 672 - 416.64 = \mathbf{255.36\ slots}
+$$
 
 #### Step 4: Free-Slot Percentage of Total Capacity ($P_{free}$)
-$$P_{free} = 100\% - 62\% = \mathbf{38.0\%}$$
+
+$$
+P_{free} = 100\% - 62\% = \mathbf{38.0\%}
+$$
+
 Verification: $\frac{255.36}{672} \times 100\% = 38.0\%$
 
 ```
@@ -385,15 +437,22 @@ Verification: $\frac{255.36}{672} \times 100\% = 38.0\%$
 ```
 
 ### 9.2 Rounding Convention & Discrete Operational Capacity
-In computer systems modeling, physical laboratory reservations cannot be transacted in fractional increments—a lab slot is an indivisible, discrete scheduling quantum. 
+
+In computer systems modeling, physical laboratory reservations cannot be transacted in fractional increments—a lab slot is an indivisible, discrete scheduling quantum.
+
 - The calculated figure of **255.36 slots** is a statistical aggregate expectation derived from applying an aggregate percentage ($62\%$) across an entire semester.
 - **Conservative Integer Capacity:** Applying the floor function ($\lfloor 255.36 \rfloor$) yields **255 guaranteed discrete booking slots** per week across the 14 facilities.
 - **Weekly Departmental Quota Ceiling:** Apportioned across the 6 academic departments, each department receives a baseline quota of:
-  $$\lfloor 42.56 \rfloor = \mathbf{42\ slots/week}$$
+  $$
+  \lfloor 42.56 \rfloor = \mathbf{42\ slots/week}
+  $$
+
   with the fractional remainder ($0.56 \times 6 \approx 3.36$ slots) held in an institutional buffer pool managed by the System Administrator for ad-hoc campus recruitment drives and emergency examinations.
 
 ### 9.3 Why Capacity is an Estimate and Not a Rigid Guarantee
+
 The figure of 255.36 weekly slots represents an **operational baseline estimate**, not an immutable contractual guarantee, due to unavoidable operational variations:
+
 1. **Mid-Semester Timetable Adjustments:** Accreditation audits, guest lectures, and faculty rescheduling alter room assignments dynamically.
 2. **Preventative & Emergency Hardware Maintenance:** Workstation re-imaging, network switch upgrades, operating system patching, and HVAC failures periodically take entire laboratories offline.
 3. **Institutional Holidays & Academic Breaks:** Gazetted holidays falling on weekdays compress the active operational week below 6 days.
@@ -453,6 +512,7 @@ LabBook is architected following a modern, containerized **Layered Microservices
 The Use Case model maps the functional boundaries of the system across the 5 identified actors.
 
 ### PlantUML Source Code:
+
 ```plantuml
 @startuml LabBook_UseCase_Diagram
 skinparam actorStyle awesome
@@ -520,6 +580,7 @@ UC_Import ..> UC_Auth : <<include>>
 ```
 
 ### Explanation of Use Case Architecture:
+
 - Every privileged action strictly requires `<<include>>` on **UC-01 (Authenticate via LDAP)** to enforce authorization.
 - **UC-03 (Book Free Lab Slot)** encapsulates the core business transactions, including quota verification (**UC-04**) and clash checking (**UC-05**).
 - **UC-08 (Process No-Show & Reclaim)** extends the core lifecycle automatically when triggered by the system daemon.
@@ -531,6 +592,7 @@ UC_Import ..> UC_Auth : <<include>>
 The domain model captures the persistent entities, operational behaviors, associations, and multiplicity constraints.
 
 ### PlantUML Source Code:
+
 ```plantuml
 @startuml LabBook_Class_Diagram
 skinparam classAttributeIconSize 0
@@ -677,6 +739,7 @@ Department "1" -- "0..*" Booking : accounts_for
 This diagram traces the end-to-end interactions between the user, application services, persistence engine, and the lab assistant, including alternate failure branches.
 
 ### PlantUML Source Code:
+
 ```plantuml
 @startuml LabBook_Sequence_Diagram
 autonumber
@@ -778,6 +841,7 @@ LA --> S : 26. Assign workstation & allow lab entry
 ## 11.4 Activity Diagram: End-to-End Booking & Verification Workflow
 
 ### PlantUML Source Code:
+
 ```plantuml
 @startuml LabBook_Activity_Diagram
 skinparam monochrome false
@@ -860,6 +924,7 @@ stop
 ## 11.5 State Machine Diagram: Booking Lifecycle
 
 ### PlantUML Source Code:
+
 ```plantuml
 @startuml LabBook_State_Diagram
 skinparam monochrome false
@@ -890,18 +955,23 @@ COMPLETED --> [*]
 ## 11.6 Architectural Cohesion, Loose Coupling, and Interface Abstraction Justification
 
 ### 1. High Cohesion
+
 Each structural component encapsulates a single, tightly defined business responsibility:
+
 - `TimetableService`: Focuses entirely on ingesting, parsing, and persisting recurring academic class schedules. It contains no booking logic or UI state.
 - `QuotaService`: Responsible solely for tracking, validating, decrementing, and resetting department-level allocation buckets.
 - `BookingService`: Manages transactional state changes and coordinates clash prevention algorithms.
 - `CheckInService`: Handles physical token verification and attendance auditing.
 
 ### 2. Loose Coupling via Service Interfaces
+
 The services communicate through well-defined, asynchronous programmatic interfaces and REST/gRPC contracts rather than direct database table sharing:
-- When the `BookingService` processes a reservation, it calls `ITimetableService.isSlotOccupied(...)` and `IQuotaService.hasSufficientQuota(...)`. 
+
+- When the `BookingService` processes a reservation, it calls `ITimetableService.isSlotOccupied(...)` and `IQuotaService.hasSufficientQuota(...)`.
 - If the Timetable Office changes its schedule format (e.g., migrating from CSV to an automated ERP API), only the internal parsing implementation of `TimetableService` requires updating. The `BookingService`, database schemas, and student-facing UI remain completely unaffected.
 
 ### 3. Isolation of Booking from Timetable Ingestion
+
 The semester timetable ingestion occurs as an offline batch process prior to active booking windows. Curricular entries are translated into immutable baseline reservation records. The operational booking engine queries these records using read-only projections, preventing timetable import scripts from degrading booking performance.
 
 ---
@@ -963,6 +1033,7 @@ The project schedule comprises 7 foundational activities. All durations and depe
 # 14. FORWARD PASS CALCULATIONS (EARLIEST TIMES)
 
 The Forward Pass determines the Earliest Start ($ES$) and Earliest Finish ($EF$) for every task.
+
 - Formula: $EF_i = ES_i + \text{Duration}_i$
 - For successor task $j$: $ES_j = \max(EF_{\text{predecessors}})$
 - Project Start is defined at Project Day 0 ($t = 0$), corresponding to the commencement of Day 1.
@@ -1002,6 +1073,7 @@ The Forward Pass determines the Earliest Start ($ES$) and Earliest Finish ($EF$)
    - ES(G) = max(EF(E), EF(F)) = max(25, 25) = 25
    - EF(G) = 25 + 5 = 30
 ```
+
 **Total Calculated Project Duration = 30 Working Days**
 
 ---
@@ -1009,6 +1081,7 @@ The Forward Pass determines the Earliest Start ($ES$) and Earliest Finish ($EF$)
 # 15. BACKWARD PASS CALCULATIONS (LATEST TIMES)
 
 The Backward Pass determines the Latest Finish ($LF$) and Latest Start ($LS$) for every task without extending the project duration ($LF_{\text{final}} = 30$).
+
 - Formula: $LS_i = LF_i - \text{Duration}_i$
 - For predecessor task $i$: $LF_i = \min(LS_{\text{successors}})$
 
@@ -1053,10 +1126,16 @@ The Backward Pass determines the Latest Finish ($LF$) and Latest Start ($LS$) fo
 # 16. FLOAT CALCULATION & SLACK ANALYSIS
 
 Total Float ($TF$) represents the duration a task can be delayed without delaying the overall project completion date:
-$$TF_i = LS_i - ES_i = LF_i - EF_i$$
+
+$$
+TF_i = LS_i - ES_i = LF_i - EF_i
+$$
 
 Free Float ($FF$) represents the duration a task can be delayed without delaying the Earliest Start of any immediate successor:
-$$FF_i = \min(ES_{\text{successors}}) - EF_i$$
+
+$$
+FF_i = \min(ES_{\text{successors}}) - EF_i
+$$
 
 ```
 +=======================================================================================================+
@@ -1073,7 +1152,8 @@ $$FF_i = \min(ES_{\text{successors}}) - EF_i$$
 ```
 
 ### Analysis of Float:
-- **Task B (Quota Policy Agreement)** possesses exactly **1 day of Total Float** ($10 - 9 = 1$) and **1 day of Free Float** ($\min(ES_D) - EF_B = 10 - 9 = 1$). 
+
+- **Task B (Quota Policy Agreement)** possesses exactly **1 day of Total Float** ($10 - 9 = 1$) and **1 day of Free Float** ($\min(ES_D) - EF_B = 10 - 9 = 1$).
 - This float indicates that a 24-hour delay in finalizing departmental quota agreements will not impact the project finish date.
 - However, if the quota debate extends by 2 or more days, Task B will consume its float, shift the Earliest Start of Task D, and become an active critical path item.
 
@@ -1084,15 +1164,23 @@ $$FF_i = \min(ES_{\text{successors}}) - EF_i$$
 A Critical Path is defined as the continuous sequence of dependent tasks connecting the start of the project to its completion for which Total Float equals zero ($TF = 0$).
 
 ### Evaluation of Network Paths:
+
 - **Path 1:** $A \rightarrow B \rightarrow D \rightarrow E \rightarrow G = 4 + 5 + 10 + 5 + 5 = 29\text{ days}$
 - **Path 2:** $A \rightarrow B \rightarrow D \rightarrow F \rightarrow G = 4 + 5 + 10 + 5 + 5 = 29\text{ days}$
 - **Path 3:** $A \rightarrow C \rightarrow D \rightarrow E \rightarrow G = 4 + 6 + 10 + 5 + 5 = \mathbf{30\ days}$
 - **Path 4:** $A \rightarrow C \rightarrow D \rightarrow F \rightarrow G = 4 + 6 + 10 + 5 + 5 = \mathbf{30\ days}$
 
 ### Mathematical Finding: Dual Parallel Critical Paths
+
 The project features **two concurrent Critical Paths**, each totaling exactly **30 Working Days**:
-$$\mathbf{Critical\ Path\ 1:\ A \rightarrow C \rightarrow D \rightarrow E \rightarrow G\ (30\ Days)}$$
-$$\mathbf{Critical\ Path\ 2:\ A \rightarrow C \rightarrow D \rightarrow F \rightarrow G\ (30\ Days)}$$
+
+$$
+\mathbf{Critical\ Path\ 1:\ A \rightarrow C \rightarrow D \rightarrow E \rightarrow G\ (30\ Days)}
+$$
+
+$$
+\mathbf{Critical\ Path\ 2:\ A \rightarrow C \rightarrow D \rightarrow F \rightarrow G\ (30\ Days)}
+$$
 
 Because Tasks E (Check-In) and F (Reports) both require 5 days and execute in parallel following Task D, any schedule slip in **either** Task E or Task F will directly delay project handover.
 
@@ -1121,6 +1209,7 @@ Milestones represent major governance and verification gates. Each milestone has
 # 19. GANTT CHART
 
 ### 19.1 Tabular Schedule Representation
+
 The schedule is displayed in discrete **Project Days (Day 1 through Day 30)**.
 
 ```
@@ -1144,6 +1233,7 @@ The schedule is displayed in discrete **Project Days (Day 1 through Day 30)**.
 ```
 
 ### 19.2 Mermaid Visual Schedule Model
+
 ```mermaid
 gantt
     title LabBook System Development Schedule (30 Working Days)
@@ -1211,6 +1301,7 @@ Human resource allocation is mapped by technical role across project phases.
 # 21. COMPREHENSIVE TEST PLAN & QUALITY ASSURANCE STRATEGY
 
 ### Testing Hierarchy & Strategy:
+
 1. **Unit Testing:** Executed via JUnit 5 / Jest; validates isolated business logic (e.g., quota mathematical evaluations, timetable string parsers, token hash generators). Code coverage target: $\ge 85\%$.
 2. **Integration Testing:** Validates inter-service communication between `BookingService`, `QuotaService`, `PostgreSQL`, and `Redis`. Focuses on transactional rollbacks during failure.
 3. **System Testing:** End-to-end evaluation of the integrated software against the 11 Functional Requirements and 6 NFRs.
@@ -1225,6 +1316,7 @@ Human resource allocation is mapped by technical role across project phases.
 # 22. BOUNDARY VALUE ANALYSIS (BVA)
 
 ### 22.1 Department Weekly Quota Boundary Testing
+
 *Design Assumption:* Based on Section 9, each department is allocated an integer quota of **42 slots per week**. Testing evaluates quota boundaries at $Min-1$, $Min$, $Min+1$, $Nominal$, $Max-1$, $Max$, and $Max+1$.
 
 ```
@@ -1242,6 +1334,7 @@ Human resource allocation is mapped by technical role across project phases.
 ```
 
 ### 22.2 Slot Index & Booking Duration Boundary Testing
+
 *Design Assumption:* The college operates exactly **8 slots per day** (Indexed 1 to 8). Single bookings permit a duration of **1 slot**. Advance booking is restricted to a rolling **7-day horizon**.
 
 ```
@@ -1487,7 +1580,7 @@ Every Functional Requirement maps directly to a formal, structured test case.
 
 # 27. ILLUSTRATIVE DEFECT LOG
 
-> **Academic Evaluation Disclaimer:**  
+> **Academic Evaluation Disclaimer:**
 > *"Illustrative test evidence used for metric calculation because an actual execution log was not supplied."*
 
 The following defect log represents confirmed software defects identified during formal System and Acceptance Testing prior to release.
@@ -1517,6 +1610,7 @@ The following defect log represents confirmed software defects identified during
 ```
 
 *Summary of Illustrative Testing Findings:*
+
 - **Total Defects Identified and Resolved Pre-Release:** **39 defects**
   - Critical Severity: 4
   - High Severity: 11
@@ -1531,17 +1625,28 @@ The following defect log represents confirmed software defects identified during
 Defect Density quantifies the quality of the software relative to its size, providing a standardized baseline for architectural reliability.
 
 ### Mathematical Formulation:
-$$\text{Defect Density} = \frac{\text{Number of Confirmed Pre-Release Defects}}{\text{Size of Software (in KLOC)}}$$
+
+$$
+\text{Defect Density} = \frac{\text{Number of Confirmed Pre-Release Defects}}{\text{Size of Software (in KLOC)}}
+$$
 
 ### Measurement Parameters & Assumptions:
+
 - **Confirmed Defects ($N_{\text{defects}}$):** **39 defects** (from formal pre-release test execution).
 - **Software Size Assumption:** The LabBook application comprises **5.2 KLOC** (5,200 logical source lines of code) spanning backend controllers, domain models, database migrations, and frontend UI components.
 
 ### Substitution & Calculation:
-$$\text{Defect Density} = \frac{39\text{ defects}}{5.2\text{ KLOC}}$$
-$$\mathbf{Defect\ Density = 7.50\ defects/KLOC}$$
+
+$$
+\text{Defect Density} = \frac{39\text{ defects}}{5.2\text{ KLOC}}
+$$
+
+$$
+\mathbf{Defect\ Density = 7.50\ defects/KLOC}
+$$
 
 ### Industry Benchmarking Interpretation:
+
 For enterprise academic web software entering pilot deployment, an industry standard defect density ranges between **5.0 and 10.0 defects/KLOC**. A density of **7.5 defects/KLOC** indicates rigorous pre-release quality assurance and effective boundary validation prior to production handover.
 
 ---
@@ -1551,23 +1656,42 @@ For enterprise academic web software entering pilot deployment, an industry stan
 Defect Removal Efficiency measures the percentage of software defects eliminated during development and testing prior to operational deployment, reflecting the effectiveness of the project's quality filters.
 
 ### Mathematical Formulation:
-$$\text{DRE} = \left( \frac{D_{\text{before}}}{D_{\text{before}} + D_{\text{after}}} \right) \times 100\%$$
+
+$$
+\text{DRE} = \left( \frac{D_{\text{before}}}{D_{\text{before}} + D_{\text{after}}} \right) \times 100\%
+$$
+
 Where:
+
 - $D_{\text{before}}$ = Number of verified defects discovered and remediated prior to commercial release.
 - $D_{\text{after}}$ = Number of latent defects discovered by end users during operational usage post-release.
 
 ### Parameter Values & Illustrative Data:
+
 - Pre-Release Defects Removed ($D_{\text{before}}$) = **39 defects**
 - Post-Release Latent Defects Discovered ($D_{\text{after}}$) = **3 defects**
 - Total Latent Software Defects ($D_{\text{total}} = 39 + 3$) = **42 defects**
 
 ### Step-by-Step Mathematical Calculation:
-$$\text{DRE} = \left( \frac{39}{39 + 3} \right) \times 100\%$$
-$$\text{DRE} = \left( \frac{39}{42} \right) \times 100\%$$
-$$\text{DRE} = 0.9285714 \times 100\%$$
-$$\mathbf{Defect\ Removal\ Efficiency\ (DRE) = 92.86\%}$$
+
+$$
+\text{DRE} = \left( \frac{39}{39 + 3} \right) \times 100\%
+$$
+
+$$
+\text{DRE} = \left( \frac{39}{42} \right) \times 100\%
+$$
+
+$$
+\text{DRE} = 0.9285714 \times 100\%
+$$
+
+$$
+\mathbf{Defect\ Removal\ Efficiency\ (DRE) = 92.86\%}
+$$
 
 ### Quality Evaluation:
+
 A DRE of **92.86%** comfortably exceeds the institutional engineering threshold of **90.0%**. This confirms that the test suites (BVA, Equivalence Partitioning, and Concurrency Stress Tests) successfully neutralized nearly 93 out of every 100 latent defects before the platform went live.
 
 ---
@@ -1576,12 +1700,18 @@ A DRE of **92.86%** comfortably exceeds the institutional engineering threshold 
 
 The monitoring framework establishes quantitative control thresholds across operational and engineering parameters.
 
-> **Academic Evaluation Disclaimer:**  
+> **Academic Evaluation Disclaimer:**
 > *"Numerical actual vs. planned values are illustrative representations for demonstrating variance and corrective control methodologies."*
 
 ### Mathematical Variance Formulas:
-$$\text{Absolute Variance} = \text{Actual Value} - \text{Planned Value}$$
-$$\text{Percentage Variance} = \left( \frac{\text{Actual Value} - \text{Planned Value}}{\text{Planned Value}} \right) \times 100\%$$
+
+$$
+\text{Absolute Variance} = \text{Actual Value} - \text{Planned Value}
+$$
+
+$$
+\text{Percentage Variance} = \left( \frac{\text{Actual Value} - \text{Planned Value}}{\text{Planned Value}} \right) \times 100\%
+$$
 
 ```
 +================================================================================================================================+
@@ -1621,8 +1751,13 @@ $$\text{Percentage Variance} = \left( \frac{\text{Actual Value} - \text{Planned 
 The risk framework evaluates project threats using the provided mathematical parameters without deviation.
 
 ### Governing Mathematical Formulation:
-$$\mathbf{Risk\ Exposure\ (RE) = Probability\ (P) \times Impact\ (I)}$$
+
+$$
+\mathbf{Risk\ Exposure\ (RE) = Probability\ (P) \times Impact\ (I)}
+$$
+
 Where:
+
 - **Probability ($P$):** Likelihood of risk occurrence on a scale of $0.0$ to $1.0$.
 - **Impact ($I$):** Severity of consequence to project schedule, cost, or performance on a scale of $1$ to $10$.
 
@@ -1641,7 +1776,9 @@ Where:
 ```
 
 ### Tie-Breaking Rationale Between Rank 2 and Rank 3:
+
 Both **RISK-02** and **RISK-03** feature an identical Risk Exposure of **2.40**.
+
 - **RISK-02 (Timetable Import Errors)** is prioritized as **Rank 2** because its Impact score ($I = 6$) is higher than RISK-03 ($I = 4$). Furthermore, Timetable Import lies directly on the project's **Critical Path** (Task C). Any failure in timetable ingestion delays downstream core engineering activities.
 - **RISK-03 (Student No-Shows)** is designated as **Rank 3**. Although it features high probability ($P = 0.6$), its impact is operational rather than schedule-halting, and it can be addressed via software policy controls.
 
@@ -1806,22 +1943,12 @@ CLOSURE DATE:
 
 Reflecting on the 30-day development lifecycle yields vital software engineering lessons for enterprise academic software development:
 
-1. **Resolve Quota and Governance Policies Prior to Architecture:**  
-   The 1-day float on Task B (Quota Policy Agreement) proved critical. Departmental quota negotiations are fundamentally political rather than technical. Attempting to code quota management without signed mathematical formulas causes severe backend architectural rework. Governance must lead development.
-
-2. **Decouple Recurring Imports from Real-Time Transaction Engines:**  
-   Isolating the Timetable Import module (Task C) behind an asynchronous boundary prevented malformed external CSV spreadsheets from locking the production booking database. The use of staging tables and dry-run validation routines is essential when consuming data from non-technical campus offices.
-
-3. **Enforce Atomicity at the Database Engine Level:**  
-   Application-level concurrency checks (e.g., simple `if (!slot.isBooked())` checks in code) fail under high-concurrency race conditions. True clash prevention requires atomic database primitives—such as PostgreSQL row-level pessimistic locks (`SELECT ... FOR UPDATE`) or Redis distributed mutex locks.
-
-4. **Design Check-In Interfaces for Operational Simplicity:**  
-   Lab assistants operate under time pressure as hundreds of students enter labs between class periods. Check-in interfaces must be designed for single-motion operation (e.g., automatic camera autofocus, audible confirmation tones, and instant screen-color feedback) to achieve high compliance.
-
-5. **Mandate Quantifiable Metrics for Non-Functional Requirements:**  
-   Vague requirements like "the system shall be fast" cannot be evaluated objectively. Specifying "95th percentile response time $\le 1.0\text{ s}$ under 200 concurrent users" provides developers and QA engineers with a clear, testable performance target.
-
-6. **Validate Boundary Conditions Early in Development:**  
+1. **Resolve Quota and Governance Policies Prior to Architecture:**The 1-day float on Task B (Quota Policy Agreement) proved critical. Departmental quota negotiations are fundamentally political rather than technical. Attempting to code quota management without signed mathematical formulas causes severe backend architectural rework. Governance must lead development.
+2. **Decouple Recurring Imports from Real-Time Transaction Engines:**Isolating the Timetable Import module (Task C) behind an asynchronous boundary prevented malformed external CSV spreadsheets from locking the production booking database. The use of staging tables and dry-run validation routines is essential when consuming data from non-technical campus offices.
+3. **Enforce Atomicity at the Database Engine Level:**Application-level concurrency checks (e.g., simple `if (!slot.isBooked())` checks in code) fail under high-concurrency race conditions. True clash prevention requires atomic database primitives—such as PostgreSQL row-level pessimistic locks (`SELECT ... FOR UPDATE`) or Redis distributed mutex locks.
+4. **Design Check-In Interfaces for Operational Simplicity:**Lab assistants operate under time pressure as hundreds of students enter labs between class periods. Check-in interfaces must be designed for single-motion operation (e.g., automatic camera autofocus, audible confirmation tones, and instant screen-color feedback) to achieve high compliance.
+5. **Mandate Quantifiable Metrics for Non-Functional Requirements:**Vague requirements like "the system shall be fast" cannot be evaluated objectively. Specifying "95th percentile response time $\le 1.0\text{ s}$ under 200 concurrent users" provides developers and QA engineers with a clear, testable performance target.
+6. **Validate Boundary Conditions Early in Development:**
    Testing edge cases early—such as zero remaining quota, semester boundary transitions, and same-minute booking collisions—revealed over 60% of critical defects during unit and integration phases, preventing costly architectural refactoring during final system testing.
 
 ---
@@ -1831,20 +1958,25 @@ Reflecting on the 30-day development lifecycle yields vital software engineering
 This comprehensive engineering study delivers a verified, production-ready solution for the **LabBook** Computer Lab Slot Booking and Quota Management System (Case Study No. 150).
 
 ### Key Project Findings & Quantifiable Outcomes:
-1. **Accurate Capacity Sizing:**  
-   Across **14 laboratories**, **8 daily slots**, and a **6-day operational week** (**672 gross slots**), accounting for the immutable **62% curricular timetable occupancy** (**416.64 slots**) yields an estimated weekly capacity of **255.36 free slots** (equivalent to **255 guaranteed discrete booking slots** per week, or **42 slots per department per week**). This addresses the historical lack of facility availability for engineering students.
-2. **Definitive Critical Path Schedule:**  
-   CPM network analysis proves the project requires exactly **30 Working Days**. The schedule is governed by dual parallel critical paths:
-   $$\mathbf{Path\ 1:\ Requirements\ (4d) \rightarrow Timetable\ Import\ (6d) \rightarrow Booking\ Module\ (10d) \rightarrow Check\text{-}In\ (5d) \rightarrow Testing\ (5d)}$$
-   $$\mathbf{Path\ 2:\ Requirements\ (4d) \rightarrow Timetable\ Import\ (6d) \rightarrow Booking\ Module\ (10d) \rightarrow Reports\ (5d) \rightarrow Testing\ (5d)}$$
+
+1. **Accurate Capacity Sizing:**Across **14 laboratories**, **8 daily slots**, and a **6-day operational week** (**672 gross slots**), accounting for the immutable **62% curricular timetable occupancy** (**416.64 slots**) yields an estimated weekly capacity of **255.36 free slots** (equivalent to **255 guaranteed discrete booking slots** per week, or **42 slots per department per week**). This addresses the historical lack of facility availability for engineering students.
+2. **Definitive Critical Path Schedule:**CPM network analysis proves the project requires exactly **30 Working Days**. The schedule is governed by dual parallel critical paths:
+
+   $$
+   \mathbf{Path\ 1:\ Requirements\ (4d) \rightarrow Timetable\ Import\ (6d) \rightarrow Booking\ Module\ (10d) \rightarrow Check\text{-}In\ (5d) \rightarrow Testing\ (5d)}
+   $$
+
+   $$
+   \mathbf{Path\ 2:\ Requirements\ (4d) \rightarrow Timetable\ Import\ (6d) \rightarrow Booking\ Module\ (10d) \rightarrow Reports\ (5d) \rightarrow Testing\ (5d)}
+   $$
+
    The *Department Quota Agreement* task has a total float of exactly 1 day.
-3. **Rigorous Quality Assurance Metrics:**  
-   Boundary Value Analysis, Equivalence Partitioning, and Cause-Effect Decision Tables demonstrated comprehensive test coverage. Applying industry-standard quality metrics to the illustrative testing execution yielded a **Defect Density of 7.5 defects/KLOC** and a **Defect Removal Efficiency (DRE) of 92.86%**, confirming robust software reliability.
-4. **Targeted Risk Management:**  
+3. **Rigorous Quality Assurance Metrics:**Boundary Value Analysis, Equivalence Partitioning, and Cause-Effect Decision Tables demonstrated comprehensive test coverage. Applying industry-standard quality metrics to the illustrative testing execution yielded a **Defect Density of 7.5 defects/KLOC** and a **Defect Removal Efficiency (DRE) of 92.86%**, confirming robust software reliability.
+4. **Targeted Risk Management:**
    Quantitative risk modeling identified **Inter-Departmental Quota Disagreements** as the top project risk ($RE = 3.50$), followed by **Timetable Import Errors** ($RE = 2.40$, Rank 2) and **Student No-Shows** ($RE = 2.40$, Rank 3). Dedicated RMMM strategies ensure organizational consensus and operational resilience.
 
 The resulting architectural blueprints, mathematical models, and governance frameworks provide a sound foundation for deployment across the college's computing facilities.
 
 =======================================================================================================
                                        END OF SUBMISSION REPORT
-=======================================================================================================
+===============================================================

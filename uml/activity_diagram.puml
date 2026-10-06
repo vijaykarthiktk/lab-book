@@ -23,19 +23,19 @@ endif
 :System initiates booking transaction;
 
 if (Curricular Timetable Conflict?) then (yes)
-    #pink:Reject: Slot occupied by Timetabled Class;
+    :Reject: Slot occupied by Timetabled Class; <<#pink>>
     stop
 else (no)
 endif
 
 if (Department Quota Available?) then (no)
-    #pink:Reject: Weekly Department Quota Exhausted;
+    :Reject: Weekly Department Quota Exhausted; <<#pink>>
     stop
 else (yes)
 endif
 
 if (Slot already booked by another user?) then (yes)
-    #pink:Reject: Slot clash detected;
+    :Reject: Slot clash detected; <<#pink>>
     stop
 else (no)
 endif
@@ -46,7 +46,7 @@ endif
 :Generate digital Booking Slip with QR Code;
 :Dispatch confirmation email to Student;
 
-#lightgreen:Booking Successfully Confirmed;
+:Booking Successfully Confirmed; <<#lightgreen>>
 
 fork
     :Student arrives at Lab;
@@ -63,7 +63,7 @@ fork
 fork again
     :System background daemon sweeps active slots;
     if (15 minutes elapsed since start AND status == 'CONFIRMED'?) then (yes)
-        #coral:Flag Booking as 'NO_SHOW';
+        :Flag Booking as 'NO_SHOW'; <<#coral>>
         :Apply penalty flag to Student;
         :Transition Slot to 'AVAILABLE';
         stop
